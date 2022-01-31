@@ -2,38 +2,27 @@ import React, { useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { signup, login } from '../Firebase';
+import { login } from '../Firebase';
 
-const SignUp = ({updateCurrentUser}) => {
+export const Login = ({updateCurrentUser}) => {
     const emailRef = useRef();
     const passwordRef = useRef();
-    const firstNameRef = useRef();
 
     /**
      * Sign up the user wih the requested detailes
      */
-    const handleSignUp = async () => {
+    const handleLogIn = async () => {
         try {
-            await signup(
-                emailRef.current.value,
-                passwordRef.current.value,
-                firstNameRef.current.value);
             const userCredential =
                 await login(emailRef.current.value, passwordRef.current.value);
-            updateCurrentUser(userCredential.user)
-        } catch (err) {
+            updateCurrentUser(userCredential.user);
+         } catch (err) {
             alert(err.message);
         }
     }
 
     return (
         <div>
-            <TextField
-                inputRef={firstNameRef}
-                required
-                variant="outlined"
-                label="First Name"
-            />
             <TextField
                 inputRef={emailRef}
                 required
@@ -48,9 +37,9 @@ const SignUp = ({updateCurrentUser}) => {
                 label="Password"
                 type="password"
             />
-            <Button variant="contained" onClick={handleSignUp}>Sign Up</Button>
+            <Button variant="contained" onClick={handleLogIn}>Log In</Button>
         </div>
     )
 };
 
-export default SignUp;
+export default Login;
