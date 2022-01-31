@@ -33,3 +33,7 @@ export const login = async (email, password) => {
     const userC = await signInWithEmailAndPassword(auth, email, password);
     return userC;
 }
+
+export const logout = () => {
+    return signOut(auth);
+}
