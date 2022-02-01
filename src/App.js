@@ -38,7 +38,7 @@ function App() {
         alt="new"
       />
       {isLoggedIn &&
-        <div>
+        <div style={{ marginBottom: '5vh' }}>
           <h5> Hello {currentUser?.displayName} </h5>
           <Button variant="contained" onClick={handleLogout}>Log Out</Button>
         </div>
@@ -56,7 +56,7 @@ function App() {
           }
         </div>
       }
-      {isLoggedIn && <Markets />}
+      {isLoggedIn && <Markets isLoggedIn={isLoggedIn}/>}
     </div>
   );
 }
