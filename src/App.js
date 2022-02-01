@@ -56,7 +56,7 @@ function App() {
           }
         </div>
       }
-      {isLoggedIn && <Markets isLoggedIn={isLoggedIn}/>}
+      {isLoggedIn && <Markets />}
     </div>
   );
 }

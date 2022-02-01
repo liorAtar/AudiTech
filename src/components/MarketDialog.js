@@ -10,33 +10,14 @@ const MarketDialog = ({ market, isOpen, onClose}) => {
     return (
         <Dialog open={isOpen} onClose={onClose}>
             <DialogTitle>{market.symbol}</DialogTitle>
-            <List>
-                <ListItem>
-                    <ListItemText
-                        primary="State"
-                        secondary={market.marketState} />
-                </ListItem>
-                <ListItem>
-                    <ListItemText
-                        primary="Time"
-                        secondary={market.regularMarketTime.fmt} />
-                </ListItem>
-                <ListItem>
-                    <ListItemText
-                        primary="Price"
-                        secondary={market.regularMarketPrice.fmt} />
-                </ListItem>
-                <ListItem>
-                    <ListItemText
-                        primary="Change Percent"
-                        secondary={market.regularMarketChangePercent.fmt} />
-                </ListItem>
-                <ListItem>
-                    <ListItemText
-                        primary="Change"
-                        secondary={market.regularMarketChange.fmt} />
-                </ListItem>
-            </List>
+            {/* <List>
+                {Object.entries(market).map(([key, value]) =>
+                    <ListItem key={key}>
+                        <ListItemText
+                            primary={key}/>
+                    </ListItem>    
+                )}
+            </List> */}
         </Dialog>
     )
 };
