@@ -3,7 +3,7 @@ import { TextField, Button } from '@mui/material';
 
 const INITIAL_SEARCH_VALUE = ""
 
-const Search = ({ setSearchValue, filterTable, updateMarketToAll }) => {
+const Search = ({ filterTable, updateMarketToAll }) => {
 
     const [searchInput, setSearchInput] = useState(INITIAL_SEARCH_VALUE);
 
@@ -20,7 +20,6 @@ const Search = ({ setSearchValue, filterTable, updateMarketToAll }) => {
     }
 
     const handleSearch = () => {
-        setSearchValue(searchInput);
         filterTable(searchInput);
     }
 

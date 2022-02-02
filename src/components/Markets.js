@@ -24,7 +24,6 @@ const Markets = () => {
     const [markets, setMarkets] = useState([]);
     const [selectedMarket, setSelectedMarket] = useState(INITIAL_SEARCH_VALUE);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [searchValue, setSearchValue] = useState(INITIAL_SEARCH_VALUE);
     const [filteredMarket, setFilteredMarket] = useState([]);
 
     var options = {
@@ -37,9 +36,10 @@ const Markets = () => {
         if (markets.length === 0) {
             getAllMarkets();
         }
-    }, [filteredMarket])
+    }, [])
 
     const getAllMarkets = async () => {
+        console.log("enter")
         setMarkets([]);
         axios.request(options).then(function (response) {
             setMarkets(response.data.marketSummaryResponse.result);
@@ -51,7 +51,6 @@ const Markets = () => {
 
     const handleSelectedMarketChanged = (marketSymbol) => {
         setIsDialogOpen(true);
-        console.log(marketSymbol);
 
         markets.forEach(market => {
             if (market.symbol === marketSymbol) {
@@ -64,17 +63,17 @@ const Markets = () => {
         setIsDialogOpen(false);
     };
 
-    const filterTable = () => {
+    const filterTable = (searchInput) => {
         var filtered = []
         var searchFound = false;
 
         markets.map(market => {
-            if (market.symbol.includes(searchValue) ||
-                market.marketState.includes(searchValue) ||
-                market.regularMarketTime.fmt.includes(searchValue) || 
-                market.regularMarketPrice.fmt.includes(searchValue) ||
-                market.regularMarketChange.fmt.includes(searchValue) ||
-                market.regularMarketChangePercent.fmt.includes(searchValue)) {
+            if (market.symbol.includes(searchInput) ||
+                market.marketState.includes(searchInput) ||
+                market.regularMarketTime.fmt.includes(searchInput) || 
+                market.regularMarketPrice.fmt.includes(searchInput) ||
+                market.regularMarketChange.fmt.includes(searchInput) ||
+                market.regularMarketChangePercent.fmt.includes(searchInput)) {
                 searchFound = true;
             }
             if (searchFound) {
@@ -97,7 +96,6 @@ const Markets = () => {
     return (
         <div>
             <Search
-                setSearchValue={setSearchValue}
                 filterTable={filterTable}
                 updateMarketToAll={updateMarketToAll} />
             <TableContainer >
@@ -140,7 +138,9 @@ const Markets = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <MarketDialog market={selectedMarket} isOpen={isDialogOpen} onClose={closeMarketDialog}/>
+            {selectedMarket !== INITIAL_SEARCH_VALUE &&
+                <MarketDialog market={selectedMarket} isOpen={isDialogOpen} onClose={closeMarketDialog} />
+            }
         </div>
     )
 };
