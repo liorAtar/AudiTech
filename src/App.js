@@ -15,15 +15,27 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [selectedTab, setSelectedTab] = useState("signup")
 
+  /**
+   * Update the current user that logged in
+   * @param {*} user current user
+   */
   const updateCurrentUser = (user) => {
     setCurrentUser(user);
     setIsLoggedIn(true);
   }
 
+  /**
+   * Update the new selected tab
+   * @param {*} event 
+   * @param {*} newSelectedTab 
+   */
   const handleSelectedTabChanged = (event, newSelectedTab) => {
     setSelectedTab(newSelectedTab);
   }
 
+  /**
+   * Logout the current user
+   */
   const handleLogout = () => {
     logout();
     setCurrentUser(null);
@@ -56,7 +68,7 @@ function App() {
           }
         </div>
       }
-      {isLoggedIn && <Markets />}
+      {currentUser && (isLoggedIn && <Markets />)}
     </div>
   );
 }

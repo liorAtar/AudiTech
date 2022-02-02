@@ -9,13 +9,15 @@ export const Login = ({updateCurrentUser}) => {
     const passwordRef = useRef();
 
     /**
-     * Sign up the user wih the requested detailes
+     * Log in the user with the requested detailes
      */
     const handleLogIn = async () => {
         try {
             const userCredential =
                 await login(emailRef.current.value, passwordRef.current.value);
-            updateCurrentUser(userCredential.user);
+            if (userCredential) {
+                updateCurrentUser(userCredential.user);
+            }
          } catch (err) {
             alert(err.message);
         }
