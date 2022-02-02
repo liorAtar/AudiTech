@@ -29,6 +29,7 @@ export const Login = ({updateCurrentUser}) => {
                 variant="outlined"
                 label="Email"
                 type="email"
+                style={{ marginBottom: '1vh' }}
             />
             <TextField
                 inputRef={passwordRef}
@@ -36,6 +37,7 @@ export const Login = ({updateCurrentUser}) => {
                 variant="outlined"
                 label="Password"
                 type="password"
+                style={{ marginBottom: '1vh' }}
             />
             <Button variant="contained" onClick={handleLogIn}>Log In</Button>
         </div>

@@ -27,12 +27,13 @@ const SignUp = ({updateCurrentUser}) => {
     }
 
     return (
-        <div>
+        <div style={{display: 'grid'}}>
             <TextField
                 inputRef={firstNameRef}
                 required
                 variant="outlined"
                 label="First Name"
+                style={{ marginBottom: '1vh' }}
             />
             <TextField
                 inputRef={emailRef}
@@ -40,6 +41,7 @@ const SignUp = ({updateCurrentUser}) => {
                 variant="outlined"
                 label="Email"
                 type="email"
+                style={{ marginBottom: '1vh' }}
             />
             <TextField
                 inputRef={passwordRef}
@@ -47,8 +49,11 @@ const SignUp = ({updateCurrentUser}) => {
                 variant="outlined"
                 label="Password"
                 type="password"
+                style={{ marginBottom: '1vh' }}
             />
-            <Button variant="contained" onClick={handleSignUp}>Sign Up</Button>
+            <Button variant="contained" onClick={handleSignUp}>
+                Sign Up
+            </Button>
         </div>
     )
 };
