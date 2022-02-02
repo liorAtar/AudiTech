@@ -10,7 +10,7 @@ const SignUp = ({updateCurrentUser}) => {
     const firstNameRef = useRef();
 
     /**
-     * Sign up the user wih the requested detailes
+     * Sign up the user with the requested detailes
      */
     const handleSignUp = async () => {
         try {
@@ -20,7 +20,9 @@ const SignUp = ({updateCurrentUser}) => {
                 firstNameRef.current.value);
             const userCredential =
                 await login(emailRef.current.value, passwordRef.current.value);
-            updateCurrentUser(userCredential.user)
+            if (userCredential) {
+                updateCurrentUser(userCredential.user);
+            }
         } catch (err) {
             alert(err.message);
         }

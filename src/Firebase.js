@@ -22,17 +22,82 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 
 export const signup = async (email, password, firstName) => {
-    await createUserWithEmailAndPassword(auth, email, password)
-    updateProfile(auth.currentUser, {
-        displayName: firstName
-    })
+    var errorMessage = null;
+
+    try {
+        await createUserWithEmailAndPassword(auth, email, password)
+        
+    } catch (error) {
+        switch (error.code) {
+            case 'auth/email-already-in-use':
+                errorMessage = `Email address ${email} already in use.`;
+                break;
+            case 'auth/invalid-email':
+                errorMessage = `Email address ${email} is invalid.`;
+                break;
+            case 'auth/operation-not-allowed':
+                errorMessage = `Error during sign up.`;
+                break;
+            case 'auth/weak-password':
+                errorMessage = 'Password is not strong enough. ' +
+                    'Add additional characters including special characters and numbers.';
+                break;
+            default:
+                errorMessage = error.message;
+                break;
+        }
+    }
+
+    if (errorMessage !== null) {
+        alert(errorMessage);
+    }
+    else {
+        updateProfile(auth.currentUser, {
+            displayName: firstName
+        })
+    }
 }
 
 export const login = async (email, password) => {
-    // TODO: error handling
-    const userC = await signInWithEmailAndPassword(auth, email, password);
+    var errorMessage = null;
+    var userC = null;
+
+    try {
+        userC = await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+        switch (error.code) {
+            case 'auth/invalid-email':
+                errorMessage = "Your email address appears to be malformed.";
+                break;
+            case 'auth/wrong-password':
+                errorMessage = "Your password is wrong.";
+                break;
+            case 'auth/user-not-found':
+                errorMessage = "User with this email doesn't exist.";
+                break;
+            case 'auth/user-disabled':
+                errorMessage = "User with this email has been disabled.";
+                break;
+            case 'auth/too-many-requests':
+                errorMessage = "Too many requests. Try again later.";
+                break;
+            case 'auth/operation-not-allowed':
+                errorMessage = "Signing in with Email and Password is not enabled.";
+                break;
+            default:
+                errorMessage = "An undefined Error happened.";
+        }
+    }
+
+    if (errorMessage !== null) {
+        alert(errorMessage);
+        return null;
+    } 
+
     return userC;
+
 }
+    
 
 export const logout = () => {
     return signOut(auth);

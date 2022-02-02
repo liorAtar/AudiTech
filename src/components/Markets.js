@@ -38,8 +38,10 @@ const Markets = () => {
         }
     }, [])
 
+    /**
+     * Fetch all the markets summary and update the market state
+     */
     const getAllMarkets = async () => {
-        console.log("enter")
         setMarkets([]);
         axios.request(options).then(function (response) {
             setMarkets(response.data.marketSummaryResponse.result);
@@ -49,6 +51,10 @@ const Markets = () => {
         });
     }
 
+    /**
+     * Update the selected market to the new value
+     * @param {*} marketSymbol 
+     */
     const handleSelectedMarketChanged = (marketSymbol) => {
         setIsDialogOpen(true);
 
@@ -59,15 +65,24 @@ const Markets = () => {
         })
     }
 
+    /**
+     * Close the market dialog
+     */
     const closeMarketDialog = () => {
         setIsDialogOpen(false);
     };
 
+    /**
+     * Filter the table according to the search input
+     * @param {*} searchInput 
+     */
     const filterTable = (searchInput) => {
         var filtered = []
         var searchFound = false;
 
+        /** Go through all the markets */
         markets.map(market => {
+            /** Check if each category includs the serach input */
             if (market.symbol.includes(searchInput) ||
                 market.marketState.includes(searchInput) ||
                 market.regularMarketTime.fmt.includes(searchInput) || 
@@ -76,12 +91,15 @@ const Markets = () => {
                 market.regularMarketChangePercent.fmt.includes(searchInput)) {
                 searchFound = true;
             }
+
+            /** Check if the search input was found*/
             if (searchFound) {
                 filtered.push(market);
                 searchFound = false;
             }
         })
 
+        /** Check if there is market that includes the search input */
         if (filtered.length === 0) {
             alert('No market was found')
         } else {
@@ -89,6 +107,7 @@ const Markets = () => {
         }
     }
 
+    /** Update the current markets to show to all markets */
     const updateMarketToAll = () => {
         setFilteredMarket(markets);
     }

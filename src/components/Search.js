@@ -7,6 +7,9 @@ const Search = ({ filterTable, updateMarketToAll }) => {
 
     const [searchInput, setSearchInput] = useState(INITIAL_SEARCH_VALUE);
 
+    /**
+     * Delete the current search value and update the markets to all
+     */
     const deleteSearch = () => {
         if (searchInput) {
             setSearchInput(INITIAL_SEARCH_VALUE);
@@ -14,11 +17,18 @@ const Search = ({ filterTable, updateMarketToAll }) => {
         }
     }
 
+    /**
+     * Update the new serach input
+     * @param {*} e 
+     */
     const handleSearchValueChanged = (e) => {
         const newSearchValue = e.target.value;
         setSearchInput(newSearchValue);
     }
 
+    /**
+     * Filter the markets by the search value
+     */
     const handleSearch = () => {
         filterTable(searchInput);
     }
